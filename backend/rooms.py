@@ -48,10 +48,28 @@ class RoomManager:
 
     async def disconnect(self, room_code: str, websocket: WebSocket):
         if room_code in self.rooms:
+            # Find if the disconnecting websocket is the host
+            was_host = False
+            for conn in self.rooms[room_code]:
+                if conn['websocket'] == websocket and conn['role'] == 'host':
+                    was_host = True
+                    break
+
+            # Remove the websocket from the room
             self.rooms[room_code] = [conn for conn in self.rooms[room_code] if conn['websocket'] != websocket]
+
+            # If room is empty, delete it
             if not self.rooms[room_code]:
                 del self.rooms[room_code]
             else:
+                # If host left, promote the first guest to host
+                if was_host:
+                    for conn in self.rooms[room_code]:
+                        if conn['role'] == 'guest':
+                            conn['role'] = 'host'
+                            # Optionally notify the new host
+                            await conn['websocket'].send_text(json.dumps({"action": "promoted_to_host"}))
+                            break
                 await self.broadcast_guest_list(room_code)
 
     async def broadcast(self, room_code: str, sender: WebSocket, message: str):

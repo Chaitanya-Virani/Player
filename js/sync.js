@@ -32,6 +32,7 @@ function updateRoomUI() {
     document.getElementById("guest-list").innerHTML = "";
   }
 }
+  
 
 function connectSocket() {
   if (socket) {
@@ -90,6 +91,12 @@ function connectSocket() {
         icon.classList.remove("fa-circle-pause");
         icon.classList.add("fa-circle-play");
         console.log("Playback paused (sync)");
+      } else if (msg.action === "promoted_to_host") {
+        // Update UI/state to reflect host status
+        alert("You are now the host!");
+        role = "host";
+        updateRoomUI(); // <-- Add this line to refresh the side menu
+        // Update UI elements as needed
       }
     } catch (e) {
       // Not a JSON message, ignore
