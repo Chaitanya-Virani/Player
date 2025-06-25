@@ -31,36 +31,37 @@
     <i id="hamburgerIcon" class="fa fa-bars" style="color:#fff;font-size:24px;transition:transform 0.3s;"></i>
   </button>
   <!-- Hamburger and overlay menu -->
-  <div id="sideMenu" style="width:0;height:100vh;position:fixed;top:0;left:0;z-index:10;background:#181C14;overflow-x:hidden;transition:0.3s;box-shadow:2px 0 8px rgba(0,0,0,0.2);">
+  <div id="sideMenu" style="width:0;height:100vh;position:fixed;top:0;left:0;z-index:10;background:#121212;overflow-x:hidden;transition:0.3s;box-shadow:2px 0 8px rgba(0,0,0,0.2);">
     <!-- Room Sync Controls -->
     <div class="w-full flex flex-col items-center gap-y-8">
       <div style="height:64px;"></div>
       <!-- Join/Create Room Section -->
       <div class="w-full max-w-[320px] rounded-2xl shadow-lg p-6 flex flex-col gap-y-4 bg-gradient-to-br from-[#232526] to-[#181C14] border border-[#232526]">
         <div class="flex items-center w-full bg-[#23272f] rounded-xl px-4 py-3">
-          <input id="room-code-input" type="text" placeholder="Enter Room Code" class="bg-transparent border-none outline-none px-2 py-2 text-white text-lg placeholder-[#b0b3b8] w-full" />
+          <input id="room-code-input" type="text" placeholder="Enter Room Code" class="bg-transparent border-none outline-none px-2 py-2 text-white text-lg placeholder-white w-full" />
           <button id="join-room-btn" class="bg-[#1DB954] hover:bg-[#1ed760] px-4 py-2 rounded-xl ml-2 shadow-md transition-all">
             <i class="fa-solid fa-arrow-right text-2xl text-black"></i>
           </button>
         </div>
-        <button id="create-room-btn" type="button" class="w-full bg-[#1DB954] hover:bg-[#1ed760] text-black py-3 rounded-full flex items-center justify-center text-xl font-bold shadow transition-all">
+        <button id="create-room-btn" type="button" class="w-full bg-[#1DB954] hover:bg-[#1ed760] text-white py-3 rounded-full flex items-center justify-center text-xl font-bold shadow transition-all">
           <i class="fa-solid fa-plus mr-3 text-2xl"></i> Create Room
         </button>
       </div>
 
       <!-- Room Info Section -->
-      <div class="w-full max-w-[320px] rounded-xl shadow p-5 flex flex-col gap-y-2 bg-[#23272f] border-l-4 border-[#1DB954]">
+      <div id="room-info-section" style="display:none;" class="w-full max-w-[320px] rounded-xl shadow p-5 flex flex-col gap-y-2 bg-[#23272f] border-l-4 border-[#1DB954]">
         <div class="flex items-center justify-between w-full mb-2">
-          <span class="text-base font-medium text-[#b0b3b8]">Room Code:</span>
+          <span class="text-base font-medium text-white">Room Code:</span>
           <span id="room-code-display" class="font-mono text-lg tracking-wider text-white">-</span>
           <button class="text-[#1DB954] hover:text-[#1ed760] ml-2">
             <i class="fa-regular fa-copy text-xl"></i>
           </button>
         </div>
-        <div class="flex items-center justify-between w-full">
-          <span class="text-base text-[#b0b3b8]">Role: <span id="role-display" class="text-[#1DB954] font-bold">-</span></span>
-          <span class="text-base text-[#1DB954] font-bold">Connected</span>
+        <div id="joined-as-row" class="flex items-center justify-between w-full" style="display:none;">
+          <span class="text-base text-white">Joined as: <span id="role-display" class="text-[#1DB954] font-bold">-</span></span>
+          <span class="text-base text-white font-bold">Connected</span>
         </div>
+        <div id="guest-list" class="text-sm text-white mt-2"></div>
       </div>
 
       <!-- Now Playing Section -->
@@ -110,7 +111,7 @@
         <li class="list-none text-[#d1d1d1]" style="margin-left:0.2cm;">
           <div class="flex items-center bg-[#1f1f1f] px-4 py-2.5 rounded-full">
             <i class="fa-solid fa-magnifying-glass text-[#d1d1d1] text-[20px] hover:text-white"></i>
-            <input type="text" placeholder="What do you want to play?" class="ml-3 bg-transparent outline-none text-white">
+            <input type="text" name="search" placeholder="What do you want to play?" class="ml-3 bg-transparent outline-none text-white">
             <i class="fa-regular fa-window-restore text-[#d1d1d1] text-[20px] ml-45 border-l-1 pl-3 hover:text-white transform transition-transform duration-200 hover:scale-110"></i>
           </div>
         </li>
